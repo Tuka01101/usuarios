@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Inicio de Sesión</title>
+</head>
+<body>
+    <h2>Iniciar Sesión</h2>
+    <form id="loginForm">
+        <label for="username">USUARIO:</label><br>
+        <input type="text" id="username" name="username"><br>
+        <label for="password">PASSWOORD:</label><br>
+        <input type="password" id="password" name="password"><br><br>
+        <input type="submit" value="Iniciar Sesion" onclick="enviarDatos()">
+    </form>
+
+    <script>
+        function enviarDatos() {
+            const formulario = document.getElementById('loginForm');
+            const usuario = formulario.elements['username'].value;
+            const contraseña = formulario.elements['password'].value;
+
+            // Datos a enviar al servidor
+            const datos = {
+                username: usuario,
+                password: contraseña
+            };
+
+            // URL del servidor que procesará la solicitud
+            const url = 'http://localhost:3307';
+
+            // Realizar una solicitud POST utilizando fetch
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(datos)
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Manejar la respuesta del servidor si es necesario
+                console.log('Respuesta del servidor:', data);
+            })
+            .catch(error => {
+                console.error('Error al enviar datos:', error);
+            });
+        }
+    </script>
+</body>
+</html>
